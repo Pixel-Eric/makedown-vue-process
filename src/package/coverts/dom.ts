@@ -2,19 +2,24 @@ import { JSDOM } from 'jsdom';
 let dom = new JSDOM();
 let document = dom.window.document;
 
-export function generateHTML(directory: (string[] | undefined)[]): HTMLBodyElement {
-    let body = document.createElement('body');
-    body.className = 'doc-body';
-
-    let docApp = document.createElement('div');
-    body.appendChild(docApp);
-    docApp.id = "app";
-    docApp.appendChild(generateDirectoryList(directory[0]));
-    docApp.appendChild(generateContent(directory))
-    return body;
+export function generateMenu(directory: string[]): HTMLElement {
+    return generateDirectoryList(directory);
 }
 
-export function generateDirectoryList(directory: string[] | undefined): HTMLDivElement {
+export function generateHTML(directory: (string[] | undefined)[]): HTMLElement[] {
+    let _doms: HTMLElement[] = [];
+    _doms.push(packageDOM(generateDirectoryList(directory[0])));
+    _doms.push(generateContent(directory));
+    return _doms;
+}
+
+function packageDOM(dom: HTMLElement): HTMLElement {
+    let _div = document.createElement('div');
+    _div.appendChild(dom);
+    return _div;
+}
+
+function generateDirectoryList(directory: string[] | undefined): HTMLDivElement {
     if (!directory) {
         throw new Error('directory is undefine');
     }
@@ -25,6 +30,7 @@ export function generateDirectoryList(directory: string[] | undefined): HTMLDivE
 
     directory.forEach(title => {
         let li = document.createElement('li');
+        li.id = title;
         li.innerHTML = title;
         menuUL.append(li);
     })

@@ -4,3 +4,8 @@ export type ProcessConfig = {
     // File encoding,default is UTF-8.
     encoding?: BufferEncoding;
 };
+
+export type TitleTree = {
+    title?: string,
+    children?: TitleTree[],
+}

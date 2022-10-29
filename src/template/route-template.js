@@ -4,8 +4,16 @@ import Doc from '../src/views/Doc.vue';
 
 let routes = [
     {
-        path: '/',
-        component: Doc
+        path:'/',
+        redirect: 'Doc'
+    },
+    {
+        path: '/Doc',
+        redirect: '/'
+        component: Doc,
+        children: [
+            $children
+        ]
     }
 ]
 

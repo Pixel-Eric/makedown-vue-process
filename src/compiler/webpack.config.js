@@ -8,7 +8,7 @@ module.exports = {
         hot: true
     },
     output: {
-        path: path.join(__dirname, '../../dist/parser'),
+        path: path.join(__dirname, '../../dist/'),
         filename: './app.js'
     },
     module: {

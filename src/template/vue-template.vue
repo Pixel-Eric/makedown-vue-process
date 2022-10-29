@@ -1,14 +1,12 @@
 <template>
-    <div>
-
-    </div>
+  $_content
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
-    setup(){
-
-    }
+  setup() {
+    // $_code
+  },
 });
 </script>

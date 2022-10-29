@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { InitConfig } from '../types';
 import { isMakeDown } from '../util/regxGenerate';
+import { config } from './init';
 
 // 仅支持扫描目录 该操作会将目标目录下的所有md文件全部依次解析
 export function scanDirectory(_path: string): Array<string> {

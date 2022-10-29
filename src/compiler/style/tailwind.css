@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .doc {
+    width: 1440px;
+    @apply h-screen flex mt-20 justify-center;
+  }
+
+  .menu-list {
+    @apply pl-4 pr-32;
+  }
+
+  .menu-list > li::before {
+    content: "";
+    transition: 0.3s;
+    @apply h-8 w-1 mr-3;
+  }
+
+  .menu-list > li {
+    transition: 0.3s;
+    font-weight: 500;
+
+    @apply text-base text-gray-400 cursor-pointer flex items-center
+    hover:text-black;
+  }
+
+  .menu-list > li:hover::before,
+  .menu-selected {
+    content: "";
+    @apply h-8 bg-red-400 w-1 mr-3;
+  }
+}
+.test {
+  font-weight: bold;
+}

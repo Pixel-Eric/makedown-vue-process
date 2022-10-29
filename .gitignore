@@ -2,4 +2,6 @@
 
 /dist/
 
+/.vscode/
+
 package-lock.json

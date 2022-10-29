@@ -1,17 +1,16 @@
-import { createDirectory, inputFile, isDirectory, saveFile } from "./file";
-import path = require("path");
+import { InsertLogoType } from "../enum";
+import { loadVueTemplate, outputIsDirectory, outputVueTemplate } from "./file";
 
-export function generateVue(dom: HTMLElement) {
-    let file: string = inputFile(path.resolve(__dirname, '../../template/vue-template.vue'), { encoding: 'utf-8' }).toString();
-    let _DOMContent: string = dom.innerHTML;
-    file = file.replace('$_content', _DOMContent);
-    let outPath = path.resolve(__dirname, '../../compiler/src/doc/');
-    if (!isDirectory(outPath)) {
-        createDirectory(outPath);
-    }
-    saveFile(outPath, 'Menu.vue', file);
+
+let _vueTemplate: string;
+
+export function generateVue(_insert: string) {
+  _vueTemplate = loadVueTemplate();
+  outputIsDirectory();
+  replaceTemplate(InsertLogoType.Content, _insert);
+  outputVueTemplate(_vueTemplate);
 }
 
-export function generateRouter(menuList: string[]) {
-
+function replaceTemplate(logotype: InsertLogoType, template: string) {
+  _vueTemplate = _vueTemplate.replace(logotype, template);
 }

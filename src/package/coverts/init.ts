@@ -2,7 +2,8 @@ import { InitConfig } from "../types";
 import { createMenuDOM } from "./dom";
 import { readAllMakeDownFile, readConfigFile, scanDirectory } from "./file";
 import { parseAllTitle } from "./md";
-import fs from 'fs';
+import { generateVue } from "./vue";
+import { compiler } from "./webpack";
 
 /**
  * 初始化用户配置选项
@@ -21,8 +22,9 @@ export default function initProcess() {
   console.info('正在构建DOM树');
   let _menu = createMenuDOM(tree);
   console.info('正在构建Vue文件');
-  console.info('等待输出');
-  fs.writeFileSync('t.html', _menu);
+  generateVue(_menu);
+  console.info('等待编译');
+  compiler();
   console.info('编译完成');
 }
 

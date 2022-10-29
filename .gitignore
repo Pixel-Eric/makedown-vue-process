@@ -4,4 +4,6 @@
 
 /.vscode/
 
+/docs/
+
 package-lock.json

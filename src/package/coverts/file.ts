@@ -35,3 +35,26 @@ export function readAllMakeDownFile(_dirs: Array<string>): Array<string> {
     return readMakeDownFile(dir);
   })
 }
+
+export function loadVueTemplate(): string {
+  return fs.readFileSync(path.resolve(__dirname, '../../template/vue-template.vue'), config.options.encoding);
+}
+
+export function outputIsDirectory() {
+  if (!fs.existsSync(config.output.path)) {
+    fs.mkdirSync(config.output.path);
+  }
+  if (!fs.lstatSync(config.output.path).isDirectory()) {
+    throw new Error("The output path must be a directory.");
+  }
+}
+
+function outputFile(dir: string, fileName: string, data: string) {
+  let _outputPath = path.resolve(dir, fileName);
+  fs.writeFileSync(_outputPath, data);
+}
+
+export function outputVueTemplate(data: string) {
+  let _vueTemplatePath = path.resolve(__dirname, '../../compiler/src/doc/');
+  outputFile(_vueTemplatePath, 'Menu.vue', data);
+}

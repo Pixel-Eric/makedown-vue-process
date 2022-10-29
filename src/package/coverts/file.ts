@@ -1,47 +1,36 @@
 import fs from 'fs';
 import path from 'path';
-import { ProcessConfig } from '../types';
+import { InitConfig } from '../types';
+import { isMakeDown } from '../util/regxGenerate';
 
-
-export function inputFile(path: string, config: ProcessConfig): string | Buffer {
-    return fs.readFileSync(path, config);
+// 仅支持扫描目录 该操作会将目标目录下的所有md文件全部依次解析
+export function scanDirectory(_path: string): Array<string> {
+  let _isDir = fs.lstatSync(_path).isDirectory();
+  if (_isDir) {
+    // 如果为目录则开始读取目录列表
+    let dirs: Array<string> = fs.readdirSync(_path);
+    dirs = dirs.map(dir => path.join(_path, dir));
+    // 筛选是文件的且为md文件的路径
+    dirs = dirs.filter(dir => {
+      return fs.lstatSync(dir).isFile() && isMakeDown(path + dir);
+    });
+    return dirs;
+  } else {
+    throw new Error("Scan path must be a directory");
+  }
 }
 
-export function outputFile(outputPath: string, body: HTMLBodyElement) {
-    let publishPath = path.resolve(__dirname, '../../public');
-    let _template = fs.readFileSync(publishPath + '/index.html');
-    let _result = _template.toString().replace("<body>", `<body>${body.innerHTML}`);
-    if (!fs.existsSync(outputPath)) {
-        fs.mkdirSync(outputPath);
-    }
-    // 扫描public目录下的所有文件
-    let publicDir = getPathFileList(publishPath);
-    if (publicDir.length > 0) {
-        publicDir.forEach(fileName => {
-            if (fileName !== 'index.html') {
-                fs.writeFileSync(outputPath + fileName, fs.readFileSync(`${publishPath}\\${fileName}`));
-            }
-        })
-    }
-    fs.writeFileSync(outputPath + 'index.html', _result);
+export function readMakeDownFile(path: string): string {
+  return fs.readFileSync(path, 'utf8');
 }
 
-export function saveFile(path: string, fileName: string, content: string) {
-    fs.writeFileSync(`${path}/${fileName}`, content);
+export function readConfigFile(): InitConfig {
+  let rootPath = process.cwd();
+  return require(path.join(rootPath, 'md.config.js'));
 }
 
-export function getPathFileList(path: string): string[] {
-    return fs.readdirSync(path);
-}
-
-export function isFile(path: string): boolean {
-    return new RegExp(/\..*$/g).test(path);
-}
-
-export function isDirectory(path: string): boolean {
-    return fs.existsSync(path);
-}
-
-export function createDirectory(path: string) {
-    fs.mkdirSync(path);
+export function readAllMakeDownFile(_dirs: Array<string>): Array<string> {
+  return _dirs.map(dir => {
+    return readMakeDownFile(dir);
+  })
 }

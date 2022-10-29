@@ -1,93 +1,66 @@
-import fs from 'fs';
 import { TitleTree } from '../types';
-import path from 'path';
+import { titleTreeGenerator } from '../util/typeGenerate';
+import { makeDownTitleClosed, makeDownTitleSingle, makeDownTitleSpecialSymbols } from '../util/regxGenerate';
 
-let _content: string;
-let _fileContent = fs.readFileSync(path.resolve(__dirname, 'NodeJS.md'));
-if (_fileContent instanceof Buffer) {
-    _content = _fileContent.toString();
-} else {
-    _content = _fileContent
+function prefixVerify(prefix: string): boolean {
+    return prefix === '#####';
+}
+
+function pushNode(target: TitleTree, children: TitleTree, title: string = "") {
+    if (children) {
+        target.children.push(children);
+    } else {
+        target.children.push({
+            title: title,
+            children: [],
+        })
+    }
 }
 
 export function parseTitle(content: string, superiorTitle: string, prefix: string = "#"): TitleTree {
-    if (prefix === '#####') {
-        return {
-            title: superiorTitle
-        };
+    // 校验前缀是否到达最大回弹上限
+    if (prefixVerify(prefix)) {
+        return titleTreeGenerator(superiorTitle);
     }
-    console.log(superiorTitle);
+    // 创建容器
+    let _container: TitleTree = titleTreeGenerator(superiorTitle);
+    // 获取标题的正则校验公式
+    let _hasTitle = makeDownTitleClosed(prefix);
+    let _children: TitleTree;
 
-    let container: TitleTree = {
-        title: superiorTitle,
-        children: []
-    };
-    let regex = RegExp(`${prefix} (?<title>.+?(\n|\r)+?)(?<content>.+?(\n|\r)+?)${prefix} `, 's');
-
+    // 检索当前目录中所有带前缀的子目录标题及内容并进行递归
     while (true) {
-        let r = regex.exec(content);
-        let groups = r?.groups;
-
-        if (groups && groups?.content !== '\r') {
-            let title = groups?.title.replace(/(\n|\r)/gm, '');
-            let searchStr = `${prefix} ${groups?.title}${groups?.content}`;
-            let startIndex = content.indexOf(searchStr);
-            let nextContent = content.substring(startIndex, startIndex + searchStr.length);
-            console.log(content.substring(startIndex, searchStr.length));
-
-            let t = new RegExp(`${prefix} ${title}(\r|\n)*`, 's');
-            content = content.replace(nextContent, '');
-
-            nextContent = nextContent.replace(t, '');
-            let children = parseTitle(nextContent, title, prefix + "#");
-            if (!children) {
-                container.children.push({
-                    title: title,
-                    children: null,
-                });
-            } else {
-                container.children.push(children);
-            }
-
+        let _groups = _hasTitle.exec(content)?.groups;
+        if (_groups && _groups?.content !== '\r') {
+            // 消除头信息的\n | \r
+            let _title = _groups?.title.replace(/(\n|\r)/gm, '');
+            // 获取标题在文本中的起始索引
+            let _searchStr = `${prefix} ${_groups?.title}${_groups?.content}`;
+            let _startIndex = content.indexOf(_searchStr);
+            // 下一次递归的内容 (取出当前子目录集合内容丢入递归)
+            let _nextContent = content.substring(_startIndex, _startIndex + _searchStr.length);
+            // 将标题及标题后的所有换行符检出
+            let _specialSymbols = makeDownTitleSpecialSymbols(prefix, _title);
+            content = content.replace(_nextContent, '');
+            _nextContent = _nextContent.replace(_specialSymbols, '');
+            _children = parseTitle(_nextContent, _title, prefix + "#");
+            pushNode(_container, _children, _title);
         } else {
             // 如果匹配标题没有下一个则直接匹配全局
-            regex = RegExp(`^${prefix} (?<title>.+?)(\r|\n)+(?<content>.*)(\n|\r)+?`, 'gms');
-
-            groups = regex.exec(content)?.groups;
-            if (groups) {
-                let children = parseTitle(groups?.content, groups?.title, prefix + "#");
-                if (!children) {
-                    container.children.push({
-                        title: groups.title,
-                        children: null,
-                    });
-                } else {
-                    container.children.push(children);
-                }
+            _hasTitle = makeDownTitleSingle(prefix);
+            _groups = _hasTitle.exec(content)?.groups;
+            if (_groups) {
+                _children = parseTitle(_groups?.content, _groups?.title, prefix + "#");
+                pushNode(_container, _children, _groups.title);
                 content = "";
             } else {
                 return null;
             }
-
         }
-
+        // 如果没有内容了认为匹配完成退出循环
         if (content.length === 0) {
             break;
         }
     }
-
-    return container;
+    return _container;
 }
-
-// 正则匹配1 ^##### (.+?#####)
-// 正则匹配2 ^#### (.+?\n)(.+?\n)#### 
-
-fs.writeFileSync("test.json", JSON.stringify(parseTitle(_content, "")));
-
-
-// let regx = /^##### .*##### 对象的新扩展/gms;
-// console.log(regx.test(_content));
-
-// console.log(_content.match(regx));
-
-

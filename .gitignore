@@ -1,7 +1,12 @@
 /node_modules/
 
 /dist/
+/example/
 
 /.vscode/
+
+/docs/
+
+/src/compiler/src/doc/
 
 package-lock.json

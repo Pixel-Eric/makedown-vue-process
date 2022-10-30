@@ -19,9 +19,19 @@ export type OutputOptions = {
   path: string
 }
 
+export type InitOptions = {
+  encoding?: BufferEncoding,
+  server: {
+    port?: number,
+    hot?: boolean,
+    reload?: boolean
+  }
+}
+
 export type InitConfig = {
   path?: string,
   output?: OutputOptions,
   plugins?: ProcessPlugin[],
+  options?: InitOptions,
   mode?: 'production' | 'development'
 }

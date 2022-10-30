@@ -58,3 +58,7 @@ export function outputVueTemplate(data: string) {
   let _vueTemplatePath = path.resolve(__dirname, '../../compiler/src/doc/');
   outputFile(_vueTemplatePath, 'Menu.vue', data);
 }
+
+export function writeMenuJson(_tree: Object) {
+  fs.writeFileSync(path.resolve(__dirname, '../../compiler/data/menu.json'), JSON.stringify(_tree));
+}

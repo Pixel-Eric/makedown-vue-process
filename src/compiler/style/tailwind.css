@@ -9,12 +9,6 @@
   .doc {
     @apply mx-4;
   }
-  /* .navbar {
-    @apply h-16 shadow-md max-w-7xl mx-auto;
-  }
-  .doc {
-    @apply max-w-7xl mx-auto;
-  }
 
   .menu-ul-1 > li > span,
   .menu-ul-2 > li > span,
@@ -26,27 +20,27 @@
 
   .menu-ul-1 > li > span {
     transition: 0.3s;
-    @apply text-base text-teal-600 cursor-pointer
+    @apply text-lg text-teal-600 cursor-pointer
     hover:text-teal-800;
   }
   .menu-ul-1 {
-    @apply w-1/4 h-full overflow-scroll;
+    @apply w-1/4 h-full overflow-scroll overflow-x-hidden overflow-y-auto;
   }
 
   .menu-ul-2 > li > span {
     transition: 0.3s;
-    @apply text-lg text-teal-600 cursor-pointer pl-3
+    @apply text-base text-teal-600 cursor-pointer pl-3
     hover:text-teal-800;
   }
 
   .menu-ul-3 > li > span {
     transition: 0.3s;
-    @apply text-lg text-teal-600 cursor-pointer pl-5
+    @apply text-sm text-teal-600 cursor-pointer pl-5
     hover:text-teal-800;
   }
   .menu-ul-4 > li > span {
     transition: 0.3s;
-    @apply text-lg text-teal-600 cursor-pointer pl-7
+    @apply text-xs text-teal-600 cursor-pointer pl-7
     hover:text-teal-800;
-  } */
+  }
 }

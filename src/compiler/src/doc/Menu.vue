@@ -4,6 +4,7 @@
       v-for="(menuInfo,index) in _menuList"
       :key="index"
       :item="menuInfo"
+      :layout="1"
     />
   </div>
 </template>
@@ -19,7 +20,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .menu-list {
-    
-  }
+.menu-list {
+  width: 240px;
+  height: 100%;
+  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
+  border-right: solid 1px;
+  @apply border-gray-600 border-opacity-20;
+}
 </style>

@@ -9,38 +9,4 @@
   .doc {
     @apply mx-4;
   }
-
-  .menu-ul-1 > li > span,
-  .menu-ul-2 > li > span,
-  .menu-ul-3 > li > span,
-  .menu-ul-4 > li > span {
-    display: block;
-    @apply hover:bg-slate-300 py-1 pl-1;
-  }
-
-  .menu-ul-1 > li > span {
-    transition: 0.3s;
-    @apply text-lg text-teal-600 cursor-pointer
-    hover:text-teal-800;
-  }
-  .menu-ul-1 {
-    @apply w-1/4 h-full overflow-scroll overflow-x-hidden overflow-y-auto;
-  }
-
-  .menu-ul-2 > li > span {
-    transition: 0.3s;
-    @apply text-base text-teal-600 cursor-pointer pl-3
-    hover:text-teal-800;
-  }
-
-  .menu-ul-3 > li > span {
-    transition: 0.3s;
-    @apply text-sm text-teal-600 cursor-pointer pl-5
-    hover:text-teal-800;
-  }
-  .menu-ul-4 > li > span {
-    transition: 0.3s;
-    @apply text-xs text-teal-600 cursor-pointer pl-7
-    hover:text-teal-800;
-  }
 }

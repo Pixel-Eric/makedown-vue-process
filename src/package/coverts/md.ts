@@ -3,7 +3,7 @@ import { titleTreeGenerator } from '../util/typeGenerate';
 import { makeDownTitleClosed, makeDownTitleSingle, makeDownTitleSpecialSymbols } from '../util/regxGenerate';
 
 function prefixVerify(prefix: string): boolean {
-  return prefix === '#####';
+  return prefix === '###';
 }
 
 function pushNode(target: TitleTree, children: TitleTree, title: string = "") {

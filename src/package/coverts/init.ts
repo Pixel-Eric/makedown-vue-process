@@ -1,6 +1,6 @@
 import { InitConfig } from "../types";
 import { createMenuDOM } from "./dom";
-import { readAllMakeDownFile, readConfigFile, scanDirectory } from "./file";
+import { readAllMakeDownFile, readConfigFile, scanDirectory, writeMenuJson } from "./file";
 import { parseAllTitle } from "./md";
 import { generateVue } from "./vue";
 import { compiler } from "./webpack";
@@ -19,10 +19,11 @@ export default function initProcess() {
   console.info('正在解析MD文件内容');
   let _contents: Array<string> = readAllMakeDownFile(_dirs);
   let tree = parseAllTitle(_contents);
-  console.info('正在构建DOM树');
-  let _menu = createMenuDOM(tree);
-  console.info('正在构建Vue文件');
-  generateVue(_menu);
+  writeMenuJson(tree); // 写入目录列表
+  // console.info('正在构建DOM树');
+  // let _menu = createMenuDOM(tree);
+  // console.info('正在构建Vue文件');
+  // generateVue(_menu);
   console.info('等待编译');
   compiler();
   console.info('编译完成');

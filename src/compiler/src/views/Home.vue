@@ -1,86 +1,120 @@
 <template>
-  <div class="home">
-    <div class="flex justify-center items-center pt-24 select-none">
-      <span class="md-process">MakeDown Process</span>
-      <div class="border-box">
-        <span class="vue animate-pulse">Vue</span>
-      </div>
-    </div>
-    <div class="flex justify-center select-none">
-      <span class="text-2xl font-bold text-black py-4">
-        无需任何代码，快速构建基于Vue的现代化Web文档
-      </span>
-    </div>
-    <div class="flex justify-center select-none py-8">
-      <button class="start rounded-lg text-white font-bold text-lg px-4 py-2 ">
-        开始学习
-      </button>
-      <button class="install ml-4 rounded-lg text-white font-bold text-lg px-4 py-2 ">
-        开始
-      </button>
-    </div>
-    <div class="flex flex-col items-center select-none py-4">
-      <span class="font-bold text-gray-500 text-2xl py-5">Why is MakeDown Process?</span>
-      <div class="flex justify-center">
-        <card>
-          <template #title>
-            无需代码
-          </template>
-          <template #content>
-            编译一切任何你想编译的文档,仅仅需要编写MakeDown文件,既可以实现编译为Web.
-          </template>
-        </card>
-        <card>
-          <template #title>
-            定制化
-          </template>
-          <template #content>
-            MakeDown Process支持动态皮肤设置，同时支持自定义文档编译颜色.
-          </template>
-        </card>
-        <card>
-          <template #title>
-            更快速
-          </template>
-          <template #content>
-            基于Vue3、Webpack5、Tw、Less构建您的Web，减少冗余代码.
-          </template>
-        </card>
-        <card>
-          <template #title>
-            更高效
-          </template>
-          <template #content>
-            减少不必要的学习内容，仅5分钟即可上手.
-          </template>
-        </card>
-      </div>
-    </div>
-  </div>
-  <div class="features">
-    
-  </div>
+
 </template>
 
 <script>
-export default {};
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  reactive,
+  toRefs,
+  watchEffect,
+} from "vue";
+import { typewriter } from "../../hooks/typewriter";
+
+export default defineComponent({
+  setup() {
+    // DOM list
+    let home = ref(null);
+    let mdTitle = ref(null);
+    let mdFirstP = ref(null);
+    let mdSecondP = ref(null);
+
+    // State
+    let state = reactive({
+      title: "This is my first document",
+      mdfirstP:
+        " I'm going to document it as an article on my blog, but programming is so annoying to me that I need a tool.",
+      mdsecondP:
+        "I learned about 'MakerDown Process Vue' and it's really handy.",
+      showTag: false,
+      showFeature: false,
+    });
+
+    function homeAnimationStart() {
+      typewriter(mdTitle.value, state.title, () => {
+        typewriter(mdFirstP.value, state.mdfirstP, () => {
+          typewriter(mdSecondP.value, state.mdsecondP, () => {
+            state.showTag = true;
+            // Remove animation event listener.
+            home.value.removeEventListener("animationend", homeAnimationStart);
+          });
+        });
+      });
+    }
+
+    function scrollHandler(e) {
+      let scrollTop = e.target.scrollTop;
+      let viewHeight = document.body.clientHeight - 30;
+      if (scrollTop >= viewHeight) {
+        state.showFeature = true;
+      }
+    }
+
+    onMounted(() => {
+      home.value.addEventListener("animationend", homeAnimationStart);
+    });
+    return {
+      home,
+      scrollHandler,
+      mdTitle,
+      mdFirstP,
+      mdSecondP,
+      ...toRefs(state),
+    };
+  },
+});
 </script>
 
 <style scoped>
-.install {
-  transition: 0.3s;
-  background: rgb(239, 237, 237);
-  color: #666;
+.code-editor-content {
+  min-height: 420px;
 }
-.install:hover {
-  background: rgb(211, 208, 208);
+.home,
+.feature {
+  animation: entry 1.5s;
 }
-.start {
-  background-color: #578aef;
-  transition: 0.3s;
+.tag {
+  animation: showTag 1s;
 }
-.start:hover {
-  background-color: #4974ca;
+
+.leave-class {
+  animation: leave 1.5s reverse;
+}
+
+@keyframes showTag {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes leave {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
+
+@keyframes entry {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
+.button {
+  transition: 0.5s;
+  @apply rounded-lg text-indigo-500 font-bold text-lg px-12 py-3 border-solid border-2 mx-3 border-indigo-400
+  hover:text-indigo-600 hover:border-indigo-800;
 }
 .md-process {
   background-image: linear-gradient(90deg, #8f41e9, #578aef);

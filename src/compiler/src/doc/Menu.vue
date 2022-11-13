@@ -5,16 +5,37 @@
       :key="index"
       :item="menuInfo"
       :layout="1"
+      :active="active === menuInfo.title"
     />
   </div>
 </template>
 
-<script>
-import { defineComponent, reactive, toRefs } from "vue";
+<script >
+import { defineComponent, reactive, toRefs, provide, onMounted } from "vue";
 import { _menuList } from "../../data";
 export default defineComponent({
-  setup() {
-    return { _menuList };
+  props: {
+    activeName: {
+      type: String,
+      default: "",
+    },
+  },
+  setup({ activeName }) {
+    let state = reactive({
+      active: "",
+    });
+    function activeOption(layout, optionName) {
+      if (layout === 1) {
+        state.active = optionName;
+      }
+    }
+
+    onMounted(() => {
+      state.active = activeName;
+    });
+
+    provide("activeOption", activeOption);
+    return { _menuList, ...toRefs(state) };
   },
 });
 </script>

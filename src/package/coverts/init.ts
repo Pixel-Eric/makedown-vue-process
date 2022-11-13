@@ -28,5 +28,3 @@ export default function initProcess() {
   compiler();
   console.info('编译完成');
 }
-
-initProcess();

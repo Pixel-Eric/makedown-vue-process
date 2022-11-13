@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="navbar-left">
       <img
-        src="../../assets/md.png"
+        src="../../../assets/md.png"
         class="doc-icon"
         :draggable="false"
       >
@@ -48,7 +48,7 @@
         title="文档"
       >关于</span>
       <img
-        src="../../assets/GitHub-Mark-64px.png"
+        src="../../../assets/GitHub-Mark-64px.png"
         alt="GitHub"
         title="GitHub"
         class="w-6 h-6"
@@ -114,7 +114,7 @@
 }
 .navbar {
   border-bottom: solid 1px;
-  @apply mb-4 py-3 flex items-center border-gray-300 mx-4;
+  @apply py-3 flex items-center z-50 bg-white border-gray-300 mx-4;
 }
 .doc-icon {
   @apply w-8 h-8 select-none cursor-no-drop cursor-default;

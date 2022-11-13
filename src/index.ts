@@ -1,3 +1,4 @@
-import Process from "./package/object/process";
+import initProcess from "./package/coverts/init";
 
-export default Process;
+
+initProcess();

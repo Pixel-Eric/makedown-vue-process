@@ -3,8 +3,8 @@
     id="doc"
     class="doc"
   >
-    <Menu></Menu>
-    <Content></Content>
+    <Menu :active-name="title"></Menu>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -12,6 +12,12 @@
 import Menu from "../doc/Menu.vue";
 import Content from "../components/Content.vue";
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+  },
   components: {
     Menu: Menu,
     Content: Content,

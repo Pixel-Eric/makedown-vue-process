@@ -10,7 +10,6 @@ export type TitleTree = {
   children?: TitleTree[],
 }
 
-// 处理插件预留接口
 export type ProcessPlugin = {
 
 }
@@ -88,11 +87,13 @@ export type InitOptions = {
    */
   server: {
     /**
-     * 端口号 默认8080
+     * 端口号
+     * @defulat 8080
      */
     port?: number,
     /**
      * 热加载
+     * @defulat false
      */
     hot?: boolean,
     /**
@@ -103,7 +104,12 @@ export type InitOptions = {
      * 服务端渲染
      */
     ssr?: boolean
-  }
+  },
+  /**
+   * 是否为目录模式,开启该选项会自动启用目录扫描规则
+   * @defulat false
+   */
+  isDirectoryMode?: boolean,
 }
 
 export type InitConfig = {

@@ -9,4 +9,7 @@
   .doc {
     @apply mx-4;
   }
+  .cursor-show {
+    @apply border-r-2 border-r-white;
+  }
 }

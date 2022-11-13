@@ -1,7 +1,7 @@
 <template>
   <div class="menu-list">
     <tree-list
-      v-for="(menuInfo,index) in _menuList"
+      v-for="(menuInfo,index) in tabs"
       :key="index"
       :item="menuInfo"
       :layout="1"
@@ -12,12 +12,15 @@
 
 <script >
 import { defineComponent, reactive, toRefs, provide, onMounted } from "vue";
-import { _menuList } from "../../data";
 export default defineComponent({
   props: {
     activeName: {
       type: String,
       default: "",
+    },
+    tabs: {
+      type: Object,
+      default: () => {},
     },
   },
   setup({ activeName }) {
@@ -35,7 +38,7 @@ export default defineComponent({
     });
 
     provide("activeOption", activeOption);
-    return { _menuList, ...toRefs(state) };
+    return { ...toRefs(state) };
   },
 });
 </script>

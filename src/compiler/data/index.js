@@ -1,3 +1,5 @@
-import menuJson from './menu.json';
+import tabs from './tabs.json';
+import header from './header.json';
 
-export let _menuList = menuJson;
+export const _tabs = tabs;
+export const _header = header;

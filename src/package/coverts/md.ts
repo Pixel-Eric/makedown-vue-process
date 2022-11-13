@@ -65,7 +65,7 @@ export function parseTitle(content: string, superiorTitle: string = "", prefix: 
   return _container;
 }
 
-export function parseAllTitle(_content: Array<string>) {
+export function parseAllTitle(_content: Array<string>): Array<TitleTree> {
   let _h1s = _content.map(content => parseTitle(content));
   let _titleSet: Array<TitleTree> = [];
   _h1s.forEach(h1 => {

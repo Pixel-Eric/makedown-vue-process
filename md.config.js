@@ -2,7 +2,24 @@ const path = require('path');
 
 module.exports = {
   // md-process read file path
-  path: path.resolve(__dirname, './example/'),
+  docInfo: {
+    name: "测试编译标题",
+    version: "0.1.1",
+    tag: "快照"
+  },
+  tabs: [
+    {
+      title: "什么是Node?",
+      name: "nodejs",
+      path: './example/node_js/'
+    },
+    {
+      title: "关于",
+      name: "about",
+      path: './example/test/'
+    }
+  ],
+  // path: path.resolve(__dirname, './example/'),
   output: {
     path: path.resolve(__dirname, 'docs')
   },

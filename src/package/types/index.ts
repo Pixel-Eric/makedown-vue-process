@@ -22,7 +22,11 @@ export type Tab = {
   /**
    * tab需要解析的md文件或文件目录
    */
-  file: string,
+  path: string,
+  /**
+   * 标识该选项卡的唯一key
+   */
+  name: string,
   /**
    * 外部链接，可以不设置
    */
@@ -110,9 +114,35 @@ export type InitOptions = {
    * @defulat false
    */
   isDirectoryMode?: boolean,
+  /**
+   * 是否开启检索
+   */
+  search?: boolean
+}
+
+/**
+ * 文档信息
+ */
+export type DocInfo = {
+  // 文档名称
+  name?: string,
+  // 文档版本
+  version?: string,
+  // 文档标签
+  tag?: string,
+}
+
+export type TabConfig = {
+  tabName: string,
+  tree: Array<TitleTree>,
 }
 
 export type InitConfig = {
+  /**
+   * 文档相关信息
+   */
+  docInfo: DocInfo,
+  tabs: Array<Tab>,
   /**
    * 编译器编译的路径
    */

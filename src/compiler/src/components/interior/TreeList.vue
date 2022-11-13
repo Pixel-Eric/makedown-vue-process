@@ -6,7 +6,6 @@
     <li class="item">
       <a
         v-if="layout !== 1"
-        :href="`#${item.title}`"
       >
         <span :class="{'active-option':active}">
           {{item.title}}
@@ -15,7 +14,7 @@
       <span
         v-else
         :class="{'active-option':active}"
-        @click="optionClick"
+        @click="optionClick()"
       >
         {{item.title}}
       </span>
@@ -84,7 +83,6 @@ export default defineComponent({
       } else {
         activeChild(props.item.title);
       }
-      Jump();
     }
     return { optionClick, ...toRefs(state), Jump };
   },

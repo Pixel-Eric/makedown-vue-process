@@ -7,22 +7,27 @@
         :draggable="false"
       >
       <span
-        class="doc-title"
+        class="doc-title cursor-pointer"
         :draggable="false"
-        title="MakeDown Process"
+        @click="goHome()"
+        :title="_header?.name"
       >
-        MakeDown Process
+        {{_header?.name}}
       </span>
       <div class="flex items-end">
         <span
-          title="0.0.1 preview"
+          :title="mouseTitle()"
           class="doc-code"
-        >0.0.1</span>
+        >
+          {{_header.version}}
+        </span>
         <div
-          title="0.0.1 preview"
+          :title="mouseTitle()"
           class="border-box"
         >
-          <span class="doc-version">preview</span>
+          <span class="doc-version">
+            {{_header.tag}}
+          </span>
         </div>
       </div>
     </div>
@@ -35,37 +40,53 @@
       </div>
     </div>
     <div class="navbar-right ml-auto px-4 flex select-none">
-      <span
-        class="nav-tab"
-        title="文档"
-      >文档</span>
-      <span
-        class="nav-tab"
-        title="API"
-      >API</span>
-      <span
-        class="nav-tab"
-        title="文档"
-      >关于</span>
-      <img
-        src="../../../assets/GitHub-Mark-64px.png"
-        alt="GitHub"
-        title="GitHub"
-        class="w-6 h-6"
-      >
+      <tab
+        v-for="(tab,index) in _tabs"
+        :tab="tab"
+        :key="index"
+      />
     </div>
   </div>
 </template>
+
+
+<script>
+import { defineComponent } from "vue";
+import { _header, _tabs } from "../../../data";
+import Tab from "./Tab.vue";
+import { useRouter } from "vue-router";
+
+export default defineComponent({
+  components: {
+    tab: Tab,
+  },
+  setup() {
+    let router = useRouter();
+
+    function mouseTitle() {
+      return _header.version + _header.tag;
+    }
+
+    function goHome() {
+      router.push("/");
+    }
+
+    return {
+      mouseTitle,
+      goHome,
+      _header,
+      _tabs,
+    };
+  },
+});
+</script>
 
 <style scoped>
 .search-key {
   transition: 0.3s;
   border: solid 1px;
 }
-.nav-tab {
-  transition: 0.3s;
-  @apply text-gray-600 hover:text-gray-900;
-}
+
 .navbar-right > span,
 .navbar-right > img {
   cursor: pointer;

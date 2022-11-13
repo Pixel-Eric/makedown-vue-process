@@ -1,24 +1,15 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-import Doc from '../src/views/Doc.vue';
-import Home from '../src/views/Home.vue';
-import Content from '../src/components/Content.vue';
 
 let routes = [
   {
     path: '/',
-    component: Home
+    component: () => import('../src/views/Home.vue'),
   },
   {
-    path: '/doc',
-    component: Doc,
-    children: [
-      {
-        path: '/:title',
-        props: true,
-        component: Content
-      }
-    ]
-  }
+    path: '/:title',
+    component: () => import('../src/views/Page.vue'),
+    props: true
+  },
 ]
 
 let router = createRouter({

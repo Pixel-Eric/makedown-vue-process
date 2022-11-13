@@ -25,9 +25,18 @@ export function readMakeDownFile(path: string): string {
   return fs.readFileSync(path, 'utf8');
 }
 
+export function getRootPath(): string {
+  return process.cwd();
+}
+
+export function readFileInConfig(filePath: string): string[] {
+  let _path = path.resolve(getRootPath(), filePath);
+  return scanDirectory(_path);
+}
+
 export function readConfigFile(): InitConfig {
-  let rootPath = process.cwd();
-  return require(path.join(rootPath, 'md.config.js'));
+
+  return require(path.join(getRootPath(), 'md.config.js'));
 }
 
 export function readAllMakeDownFile(_dirs: Array<string>): Array<string> {
@@ -59,6 +68,26 @@ export function outputVueTemplate(data: string) {
   outputFile(_vueTemplatePath, 'Menu.vue', data);
 }
 
+export function writeDataToJson(fileName: string, data: Object) {
+  let _dataPath = '../../compiler/data/';
+  let _dir = path.resolve(__dirname, _dataPath + fileName);
+  // 获取文件名称以前的目录
+  let _index = fileName.lastIndexOf('/');
+  if (_index === -1) {
+    _index = fileName.lastIndexOf('\\');
+  }
+
+  let _outputDir = path.resolve(__dirname, _dataPath + fileName.substring(0, _index));
+  if (_index !== -1 && !fs.existsSync(_outputDir)) {
+    fs.mkdirSync(_outputDir);
+  }
+  fs.writeFileSync(_dir, JSON.stringify(data));
+}
+
+/**
+ * @deprecated
+ * @param _tree 
+ */
 export function writeMenuJson(_tree: Object) {
   fs.writeFileSync(path.resolve(__dirname, '../../compiler/data/menu.json'), JSON.stringify(_tree));
 }

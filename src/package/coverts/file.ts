@@ -63,9 +63,13 @@ function outputFile(dir: string, fileName: string, data: string) {
   fs.writeFileSync(_outputPath, data);
 }
 
-export function outputVueTemplate(data: string) {
-  let _vueTemplatePath = path.resolve(__dirname, '../../compiler/src/doc/');
-  outputFile(_vueTemplatePath, 'Menu.vue', data);
+export function outputVueTemplate(data: string, __name: string) {
+  let _targetPath = path.resolve(__dirname, '../../compiler/data/content/');
+  if (!fs.existsSync(_targetPath)) {
+    fs.mkdirSync(_targetPath);
+  }
+
+  outputFile(_targetPath, __name + '.vue', data);
 }
 
 export function writeDataToJson(fileName: string, data: Object) {

@@ -45,12 +45,11 @@ export default defineComponent({
 
 <style scoped>
 .menu-list {
+  position: fixed;
   width: 240px;
   height: 100%;
   overflow: scroll;
   overflow-x: auto;
   overflow-y: auto;
-  border-right: solid 1px;
-  @apply border-gray-600 border-opacity-20;
 }
 </style>

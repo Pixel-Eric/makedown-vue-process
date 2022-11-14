@@ -3,22 +3,22 @@ import { DocInfo, Tab } from "../types";
 import { LogError } from "./error";
 import {
   loadVueTemplate,
-  outputIsDirectory,
   outputVueTemplate,
   readAllMakeDownFile,
   readFileInConfig,
   writeDataToJson,
 } from "./file";
+import { marked } from 'marked';
 import { parseAllTitle } from "./md";
 
 
 let _vueTemplate: string;
 
-export function generateVue(_insert: string) {
+export function generateVue(_insert: Array<string>, _name: string) {
   _vueTemplate = loadVueTemplate();
-  outputIsDirectory();
-  replaceTemplate(InsertLogoType.Content, _insert);
-  outputVueTemplate(_vueTemplate);
+  // outputIsDirectory();
+  replaceTemplate(InsertLogoType.Content, marked.parse(_insert.join(`\n`)));
+  outputVueTemplate(_vueTemplate, _name);
 }
 
 function replaceTemplate(logotype: InsertLogoType, template: string) {
@@ -44,7 +44,8 @@ export function builderTabs(tabs: Array<Tab>) {
   let tabNames: Array<{
     name: string,
     key: string,
-    json: string
+    json: string,
+    content: string,
   }> = [];
 
   tabs.forEach(tab => {
@@ -54,10 +55,12 @@ export function builderTabs(tabs: Array<Tab>) {
     if (!tab.name) {
       LogError(`${tab?.title} no definde name in config 'tabs' array.`);
     }
+    generateVue(_contents, tab?.name);
     tabNames.push({
       name: tab?.title,
       key: tab.name,
-      json: `./tab/${tab.name}.json`
+      json: `./tab/${tab.name}.json`,
+      content: `./content/${tab.name}.vue`,
     });
     // 写入集合到json中
     writeDataToJson(`/tab/${tab.name}.json`, tree);

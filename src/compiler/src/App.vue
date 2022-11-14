@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import NavBar from "./components/interior/NavBar.vue";
 export default defineComponent({

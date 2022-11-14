@@ -1,6 +1,6 @@
 <template>
   <div>
-    $_content
+    
   </div>
 </template>
 

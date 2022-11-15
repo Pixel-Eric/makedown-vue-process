@@ -1,6 +1,6 @@
 import { InitConfig } from "../types";
-import { readConfigFile } from "./file";
-import { builderHeader, builderTabs } from "./vue";
+import { readConfigFile, initOutputDir } from "./file";
+import { builderHeader, builderHome, builderTabs } from "./vue";
 import { compiler } from "./webpack";
 
 /**
@@ -10,17 +10,11 @@ import { compiler } from "./webpack";
 export let config: InitConfig;
 
 export default function initProcess() {
-  console.info('正在加载配置信息');
+  initOutputDir();
   config = readConfigFile();
+  builderHome(config?.home);
   builderHeader(config?.docInfo);
-  console.dir(config);
   builderTabs(config?.tabs);
-  // writeMenuJson(tree); // 写入目录列表
-  // console.info('正在构建DOM树');
-  // let _menu = createMenuDOM(tree);
-  // console.info('正在构建Vue文件');
-  // generateVue(_menu);
-  console.info('等待编译');
   compiler();
   console.info('编译完成');
 }

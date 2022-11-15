@@ -143,6 +143,7 @@ export type InitConfig = {
    */
   docInfo: DocInfo,
   tabs: Array<Tab>,
+  home?: string,
   /**
    * 编译器编译的路径
    */

@@ -7,6 +7,7 @@ module.exports = {
     version: "0.1.1",
     tag: "快照"
   },
+  home: './example/index.vue',
   tabs: [
     {
       title: "什么是Node?",

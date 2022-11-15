@@ -37,7 +37,7 @@ export default {
 
     function getComponent() {
       return defineAsyncComponent(() =>
-        import("../../data/content/" + props.title + ".vue")
+        import("../../../../data/content/" + props.title + ".vue")
       );
     }
 
@@ -51,7 +51,7 @@ export default {
       this.hasPage = false;
     } else {
       let _fileName = _tabs[_pageIndex].key + ".json";
-      import("../../data/tab/" + _fileName).then((res) => {
+      import("../../../../data/tab/" + _fileName).then((res) => {
         this.tabs = [res[0]];
         console.log(this.tabs);
       });

@@ -2,6 +2,7 @@ import { InsertLogoType } from "../enum";
 import { DocInfo, Tab } from "../types";
 import { LogError } from "./error";
 import {
+  copyFileToPath,
   loadVueTemplate,
   outputVueTemplate,
   readAllMakeDownFile,
@@ -10,6 +11,7 @@ import {
 } from "./file";
 import { marked } from 'marked';
 import { parseAllTitle } from "./md";
+import path from "path";
 
 
 let _vueTemplate: string;
@@ -63,8 +65,12 @@ export function builderTabs(tabs: Array<Tab>) {
       content: `./content/${tab.name}.vue`,
     });
     // 写入集合到json中
-    writeDataToJson(`/tab/${tab.name}.json`, tree);
+    writeDataToJson(`./tab/${tab.name}.json`, tree);
   });
   // 写到标题到Tabs当中
   writeDataToJson('tabs.json', tabNames);
+}
+
+export function builderHome(home: string) {
+  copyFileToPath(home, './', 'index.vue');
 }

@@ -29,13 +29,16 @@ export function getRootPath(): string {
   return process.cwd();
 }
 
+export function getOutputPath(): string {
+  return path.resolve(getRootPath(), "./data/");
+}
+
 export function readFileInConfig(filePath: string): string[] {
   let _path = path.resolve(getRootPath(), filePath);
   return scanDirectory(_path);
 }
 
 export function readConfigFile(): InitConfig {
-
   return require(path.join(getRootPath(), 'md.config.js'));
 }
 
@@ -64,7 +67,7 @@ function outputFile(dir: string, fileName: string, data: string) {
 }
 
 export function outputVueTemplate(data: string, __name: string) {
-  let _targetPath = path.resolve(__dirname, '../../compiler/data/content/');
+  let _targetPath = path.resolve(getOutputPath(), "./content");
   if (!fs.existsSync(_targetPath)) {
     fs.mkdirSync(_targetPath);
   }
@@ -73,15 +76,15 @@ export function outputVueTemplate(data: string, __name: string) {
 }
 
 export function writeDataToJson(fileName: string, data: Object) {
-  let _dataPath = '../../compiler/data/';
-  let _dir = path.resolve(__dirname, _dataPath + fileName);
+  let _dataPath = getOutputPath();
+  let _dir = path.resolve(_dataPath, fileName);
   // 获取文件名称以前的目录
   let _index = fileName.lastIndexOf('/');
   if (_index === -1) {
     _index = fileName.lastIndexOf('\\');
   }
 
-  let _outputDir = path.resolve(__dirname, _dataPath + fileName.substring(0, _index));
+  let _outputDir = path.resolve(_dataPath, fileName.substring(0, _index));
   if (_index !== -1 && !fs.existsSync(_outputDir)) {
     fs.mkdirSync(_outputDir);
   }
@@ -93,5 +96,19 @@ export function writeDataToJson(fileName: string, data: Object) {
  * @param _tree 
  */
 export function writeMenuJson(_tree: Object) {
-  fs.writeFileSync(path.resolve(__dirname, '../../compiler/data/menu.json'), JSON.stringify(_tree));
+  copyFileToPath(JSON.stringify(_tree), './', 'menu.json');
+}
+
+export function copyFileToPath(original: string, targetPath: string, fileName: string) {
+  let _rootPaht = getRootPath();
+  let _file = fs.readFileSync(path.resolve(_rootPaht, original), { encoding: config.options.encoding });
+  outputFile(path.resolve(getOutputPath(), targetPath), fileName, _file);
+}
+
+
+export function initOutputDir() {
+  let _outputDir = getOutputPath();
+  if (!fs.existsSync(_outputDir)) {
+    fs.mkdirSync(_outputDir);
+  }
 }

@@ -1,8 +1,7 @@
 import { Configuration, RuleSetRule, RuleSetUseItem, webpack } from 'webpack';
-import 'webpack-dev-server';
 import path from 'path';
 import { config } from './init';
-import { FileType, Loader } from '../enum';
+import { FileType, Loader } from '../enum/index';
 import { VueLoaderPlugin } from 'vue-loader';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
@@ -30,11 +29,11 @@ function buildOutput(_config: Configuration) {
 
 function buildDevServer(_config: Configuration) {
   let _server = config.options.server;
-  _config.devServer = {
-    hot: _server?.hot ?? true,
-    port: _server?.port ?? 8080,
-    liveReload: _server?.reload ?? true
-  }
+  // _config.devServer = {
+  //   hot: _server?.hot ?? true,
+  //   port: _server?.port ?? 8080,
+  //   liveReload: _server?.reload ?? true
+  // }
 }
 
 function buildModule(_config: Configuration) {
@@ -88,3 +87,4 @@ export function compiler() {
     }
   })
 }
+

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { InitConfig } from '../types';
+import { InitConfig } from '../types/index';
 import { isMakeDown } from '../util/regxGenerate';
 import { config } from './init';
 

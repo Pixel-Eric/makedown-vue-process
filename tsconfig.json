@@ -1,6 +1,6 @@
 {
-    "compilerOptions": {
-        "lib": ["DOM"],
-        "esModuleInterop": true
-    }
+  "compilerOptions": {
+      "lib": ["DOM"],
+      "esModuleInterop": true
+  }
 }

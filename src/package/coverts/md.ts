@@ -1,4 +1,4 @@
-import { TitleTree } from '../types';
+import { TitleTree } from '../types/index';
 import { titleTreeGenerator } from '../util/typeGenerate';
 import { makeDownTitleClosed, makeDownTitleSingle, makeDownTitleSpecialSymbols } from '../util/regxGenerate';
 

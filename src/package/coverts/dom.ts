@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { TitleTree } from '../types';
+import { TitleTree } from '../types/index';
 let dom = new JSDOM();
 let document = dom.window.document;
 

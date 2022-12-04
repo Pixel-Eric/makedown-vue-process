@@ -1,10 +1,10 @@
 import { Configuration, RuleSetRule, RuleSetUseItem, webpack } from 'webpack';
-import 'webpack-dev-server';
 import path from 'path';
 import { config } from './init';
-import { FileType, Loader } from '../enum';
+import { FileType, Loader } from '../enum/index';
 import { VueLoaderPlugin } from 'vue-loader';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackDevServer, { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 function buildConfig(): Configuration {
   let _config: Configuration = {};
@@ -29,19 +29,19 @@ function buildOutput(_config: Configuration) {
 }
 
 function buildDevServer(_config: Configuration) {
-  let _server = config.options.server;
-  _config.devServer = {
-    hot: _server?.hot ?? true,
-    port: _server?.port ?? 8080,
-    liveReload: _server?.reload ?? true
-  }
+  let serverConfig = config.options.server;
+  const devServer: DevServerConfiguration = {
+    port: serverConfig?.port ?? 8080,
+    hot: serverConfig?.hot ?? true,
+  };
+  _config.devServer = devServer;
 }
 
 function buildModule(_config: Configuration) {
   let _rules = [];
   _config.module = { rules: _rules };
-  _rules.push(buildRules(FileType.Css, Loader.CssLoader));
-  _rules.push(buildRules(FileType.Less, Loader.LessLoader));
+  _rules.push(buildRules(FileType.Css, [Loader.CssLoader, Loader.PostCSSLoader]));
+  _rules.push(buildRules(FileType.Less, [Loader.CssLoader, Loader.PostCSSLoader, Loader.LessLoader]));
   _rules.push(buildRules(FileType.Vue, Loader.VueLoader));
   _rules.push({
     test: new RegExp(FileType.Image),
@@ -52,6 +52,42 @@ function buildModule(_config: Configuration) {
   });
 }
 
+// 获取tw相关的postcss配置
+let getTailwindCSSConfig = () => {
+  let twConfig = {
+    content: [
+      './src/compiler/src/**/*.vue'
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  };
+  return twConfig;
+}
+
+// 获取浏览器适配配置
+let getAutoprefixerConfig = () => {
+  let autoprefixer = {};
+
+  return autoprefixer;
+}
+
+// 处理PostCss加载TailwindCSS相关配置
+let processPostCssLoaderOptions = (loader: RuleSetRule): RuleSetRule => {
+  let tailwindcss = getTailwindCSSConfig();
+  let autoprefixer = getAutoprefixerConfig();
+  let plugins = { tailwindcss, autoprefixer };
+
+  loader.options = {
+    postcssOptions: {
+      plugins
+    }
+  }
+
+  return loader;
+}
+
 function buildRules(fileType: FileType, loader: Loader | Array<Loader>, options?: { [index: string]: any }): RuleSetRule {
   let _rule: RuleSetRule = {
     test: new RegExp(fileType),
@@ -59,7 +95,14 @@ function buildRules(fileType: FileType, loader: Loader | Array<Loader>, options?
   let _loader: Array<RuleSetUseItem> = [];
   if (loader instanceof Array) {
     loader.forEach(ld => {
-      _loader.push(...ld.split(','));
+      if (ld === Loader.PostCSSLoader) {
+        let postcssOptions:RuleSetUseItem = {};
+        processPostCssLoaderOptions(postcssOptions);
+        postcssOptions.loader = ld
+        _loader.push(postcssOptions)
+      } else {
+        _loader.push(...ld.split(','));
+      }
     });
   } else {
     _loader = loader.split(',');
@@ -82,9 +125,17 @@ function buildPlugins(_config: Configuration) {
 
 export function compiler() {
   let _compiler = webpack(buildConfig());
+  _compiler.running
   _compiler.run((err, result) => {
     if (err) {
       console.error(err);
     }
   })
+}
+
+export async function server() {
+  let webpackConfig = buildConfig();
+  let _compiler = webpack(webpackConfig);
+  let server = new WebpackDevServer({ open: true, ...webpackConfig.devServer }, _compiler);
+  await server.start()
 }

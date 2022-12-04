@@ -1,4 +1,4 @@
-import { TitleTree } from "../types";
+import { TitleTree } from "../types/index";
 
 export function titleTreeGenerator(title: string = '', children: Array<TitleTree> = []): TitleTree {
     return {

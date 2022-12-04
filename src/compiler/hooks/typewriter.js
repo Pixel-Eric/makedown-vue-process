@@ -1,4 +1,4 @@
-function cursorFlashing(DOM, stopCount = 0, endCallback) {
+export function cursorFlashing(DOM, stopCount = 0, endCallback) {
   let _count = 0;
   let timer = setInterval(() => {
     if (_count <= stopCount) {

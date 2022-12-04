@@ -1,5 +1,5 @@
-import { InsertLogoType } from "../enum";
-import { DocInfo, Tab } from "../types";
+import { InsertLogoType } from "../enum/index";
+import { DocInfo, Tab } from "../types/index";
 import { LogError } from "./error";
 import {
   copyFileToPath,
@@ -11,7 +11,6 @@ import {
 } from "./file";
 import { marked } from 'marked';
 import { parseAllTitle } from "./md";
-import path from "path";
 
 
 let _vueTemplate: string;

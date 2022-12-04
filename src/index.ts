@@ -1,6 +1,3 @@
-import initProcess from "./package/coverts/init";
+import { build, server } from "./package/coverts/init";
 
-
-export default function run() {
-  initProcess();
-}
+server();

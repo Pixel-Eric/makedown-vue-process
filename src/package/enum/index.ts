@@ -4,10 +4,11 @@ export enum InsertLogoType {
 }
 
 export enum Loader {
-  CssLoader = 'style-loader,css-loader,postcss-loader',
+  CssLoader = 'style-loader,css-loader',
   LessLoader = 'less-loader',
   URLLoader = 'url-loader',
   VueLoader = 'vue-loader',
+  PostCSSLoader = 'postcss-loader',
 }
 
 export enum FileType {

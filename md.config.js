@@ -25,7 +25,10 @@ module.exports = {
     path: path.resolve(__dirname, 'docs')
   },
   options: {
-    encoding: 'utf8'
+    encoding: 'utf8',
+    server: {
+      port: 9090
+    }
   },
   mode: 'development' // 开发模式构建
 }

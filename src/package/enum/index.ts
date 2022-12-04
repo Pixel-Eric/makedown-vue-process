@@ -1,6 +1,6 @@
 export enum InsertLogoType {
-  Content = '$_content',
-  Code = '$_code'
+  Content = '<!-- mdp-content -->',
+  Code = '// <!-- mdp-code -->'
 }
 
 export enum Loader {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    $_content
+    <!-- mdp-content -->
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   setup() {
-    // $_code
+    // <!-- mdp-code -->
   },
 });
 </script>

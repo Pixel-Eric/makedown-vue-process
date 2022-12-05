@@ -4,7 +4,10 @@
     v-if="hasPage"
     :id="title"
   >
-    <item-menu :tabs="tabs">
+    <item-menu
+      :tabs="tabs"
+      :activeName="tabs[0].key"
+    >
     </item-menu>
     <div class="p-5 content">
       <component :is="getComponent()" />
@@ -53,7 +56,6 @@ export default {
       let _fileName = _tabs[_pageIndex].key + ".json";
       import("../../../../data/tab/" + _fileName).then((res) => {
         this.tabs = [res[0]];
-        console.log(this.tabs);
       });
     }
   },

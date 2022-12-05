@@ -1,5 +1,5 @@
 <template>
-  <component :is="getHome()" />
+  <component :is="getIndexHTML()" />
 </template>
 
 <script>
@@ -7,10 +7,10 @@ import { defineComponent, defineAsyncComponent } from "vue";
 
 export default defineComponent({
   setup() {
-    function getHome() {
+    function getIndexHTML() {
       return defineAsyncComponent(() => import("../../../../data/index.vue"));
     }
-    return { getHome };
+    return { getIndexHTML };
   },
 });
 </script>

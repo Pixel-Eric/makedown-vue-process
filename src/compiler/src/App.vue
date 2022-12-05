@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <nav-bar></nav-bar>
-    <div class="">
+    <div class="flex-1">
       <router-view :key="route.fullPath" />
     </div>
   </div>

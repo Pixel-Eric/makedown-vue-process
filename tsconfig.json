@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
-      "lib": ["DOM"],
-      "esModuleInterop": true
-  }
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "removeComments": true,
+    "declaration": true,
+    "declarationDir": "./dist/",
+  },
+  "include": [
+    "./src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

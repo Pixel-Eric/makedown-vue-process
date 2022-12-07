@@ -1,0 +1,80 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #app {
+    @apply flex justify-center h-screen overflow-scroll overflow-x-hidden overflow-y-auto;
+  }
+  .doc {
+    @apply mx-4;
+  }
+  .cursor-show {
+    @apply border-r-2 border-r-white;
+  }
+
+  pre {
+    @apply bg-slate-700 text-white p-4 rounded-lg text-base;
+  }
+
+  code {
+    code-color: red;
+  }
+
+  h1 {
+    @apply text-5xl;
+  }
+  h2::before {
+    content: "#";
+    @apply text-cyan-500 cursor-pointer mr-3 absolute -left-6 opacity-0 transition-all;
+  }
+  h2:hover::before {
+    @apply opacity-100;
+  }
+  h2 {
+    user-select: none;
+    @apply text-cyan-600 relative ml-6 cursor-default;
+  }
+
+  h3 {
+    @apply text-cyan-600/70 relative ml-6 cursor-default;
+  }
+  h3::before {
+    content: "#";
+    @apply text-cyan-600/70 cursor-pointer mr-3 absolute -left-4 opacity-0 transition-all;
+  }
+  h3:hover::before {
+    @apply opacity-100;
+  }
+
+  h4 {
+    @apply text-cyan-800/70 relative ml-6 cursor-default;
+  }
+  h4::before {
+    content: "#";
+    @apply text-cyan-800/70 cursor-pointer mr-3 absolute -left-4 opacity-0 transition-all;
+  }
+  h4:hover::before {
+    @apply opacity-100;
+  }
+
+  h5 {
+    @apply text-cyan-800/70 relative ml-6 cursor-default;
+  }
+  h5::before {
+    content: "#";
+    @apply text-cyan-800/70 cursor-pointer mr-3 absolute -left-4 opacity-0 transition-all;
+  }
+  h5:hover::before {
+    @apply opacity-100;
+  }
+
+  p {
+    @apply mx-6 text-slate-800/70 text-sm;
+  }
+
+  ul {
+    list-style: none;
+    @apply p-0;
+  }
+}

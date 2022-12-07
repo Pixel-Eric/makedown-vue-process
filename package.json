@@ -1,13 +1,17 @@
 {
   "name": "makedown-vue-process",
-  "version": "0.0.1_preview",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "ts-node ./example/index.ts",
-    "build": "webpack",
+    "build": "tsc --project tsconfig.json",
     "build:test": "webpack --config ./src/compiler/webpack.config.js",
-    "serve:test": "webpack serve --config ./src/compiler/webpack.config.js"
+    "serve:test": "webpack serve --config ./src/compiler/webpack.config.js",
+    "serve:doc": "mdp server"
+  },
+  "bin": {
+    "mdp": ".bin/index.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +34,7 @@
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.2.1",
     "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3",
     "url-loader": "^4.1.1",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.1.5",
@@ -41,6 +46,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "path": "^0.12.7",
     "path-browserify": "^1.0.1",
+    "ts-node": "^10.9.1",
     "vue": "^3.2.41",
     "webpack-dev-server": "^4.11.1"
   }

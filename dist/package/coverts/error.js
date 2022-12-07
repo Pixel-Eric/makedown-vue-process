@@ -6,10 +6,8 @@ var FileErrorType;
     FileErrorType[FileErrorType["NotFound"] = 0] = "NotFound";
 })(FileErrorType || (FileErrorType = {}));
 class FileError {
-    name = "FileError";
-    message;
-    stack;
     constructor(message, type, stack) {
+        this.name = "FileError";
         this.message += `{type}:${message}`;
         if (stack) {
             this.stack = stack;

@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initOutputDir = exports.copyFileToPath = exports.writeMenuJson = exports.writeDataToJson = exports.outputVueTemplate = exports.outputIsDirectory = exports.loadVueTemplate = exports.readAllMakeDownFile = exports.readConfigFile = exports.readFileInConfig = exports.getOutputPath = exports.getRootPath = exports.readMakeDownFile = exports.scanDirectory = void 0;
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-const regxGenerate_1 = require("../util/regxGenerate");
-const init_1 = require("./init");
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
+var regxGenerate_1 = require("../util/regxGenerate");
+var init_1 = require("./init");
 function scanDirectory(_path) {
     let _isDir = fs_1.default.lstatSync(_path).isDirectory();
     if (_isDir) {

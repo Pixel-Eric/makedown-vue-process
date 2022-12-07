@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.builderHome = exports.builderTabs = exports.builderHeader = exports.generateVue = void 0;
-const index_1 = require("../enum/index");
-const error_1 = require("./error");
-const file_1 = require("./file");
-const marked_1 = require("marked");
-const md_1 = require("./md");
+var index_1 = require("../enum/index");
+var error_1 = require("./error");
+var file_1 = require("./file");
+var marked_1 = require("marked");
+var md_1 = require("./md");
 let _vueTemplate;
 function generateVue(_insert, _name) {
     _vueTemplate = (0, file_1.loadVueTemplate)();
@@ -40,7 +40,7 @@ function builderTabs(tabs) {
             name: tab?.title,
             key: tab.name,
             json: `./tab/${tab.name}.json`,
-            content: `./content/${tab.name}.vue`,
+            content: `./content/${tab.name}.vue`
         });
         (0, file_1.writeDataToJson)(`./tab/${tab.name}.json`, tree);
     });

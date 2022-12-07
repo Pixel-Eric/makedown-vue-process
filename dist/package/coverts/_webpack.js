@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.server = exports.compiler = void 0;
-const webpack_1 = require("webpack");
-const path_1 = __importDefault(require("path"));
-const init_1 = require("./init");
-const index_1 = require("../enum/index");
-const vue_loader_1 = require("vue-loader");
-const html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
-const webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
+var webpack_1 = require("webpack");
+var path_1 = __importDefault(require("path"));
+var init_1 = require("./init");
+var index_1 = require("../enum/index");
+var vue_loader_1 = require("vue-loader");
+var html_webpack_plugin_1 = __importDefault(require("html-webpack-plugin"));
+var webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
 function buildConfig() {
     let _config = {};
     buildEntry(_config);
@@ -34,7 +34,7 @@ function buildDevServer(_config) {
     let serverConfig = init_1.config.options.server;
     const devServer = {
         port: serverConfig?.port ?? 8080,
-        hot: serverConfig?.hot ?? true,
+        hot: serverConfig?.hot ?? true
     };
     _config.devServer = devServer;
 }
@@ -58,9 +58,9 @@ let getTailwindCSSConfig = () => {
             './src/compiler/src/**/*.vue'
         ],
         theme: {
-            extend: {},
+            extend: {}
         },
-        plugins: [],
+        plugins: []
     };
     return twConfig;
 };
@@ -81,7 +81,7 @@ let processPostCssLoaderOptions = (loader) => {
 };
 function buildRules(fileType, loader, options) {
     let _rule = {
-        test: new RegExp(fileType),
+        test: new RegExp(fileType)
     };
     let _loader = [];
     if (loader instanceof Array) {

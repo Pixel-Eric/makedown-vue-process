@@ -1,20 +1,20 @@
 /// <reference types="node" />
-export declare type ProcessConfig = {
+export type ProcessConfig = {
     outputPath?: string;
     encoding?: BufferEncoding;
 };
-export declare type TitleTree = {
+export type TitleTree = {
     title?: string;
     children?: TitleTree[];
 };
-export declare type ProcessPlugin = {};
-export declare type Tab = {
+export type ProcessPlugin = {};
+export type Tab = {
     title: string;
     path: string;
     name: string;
     link?: string;
 };
-export declare type NavbarOptions = {
+export type NavbarOptions = {
     tabs?: Array<Tab>;
     useVue?: boolean;
     title?: string;
@@ -24,10 +24,10 @@ export declare type NavbarOptions = {
     versionTag?: string;
     icon?: string;
 };
-export declare type OutputOptions = {
+export type OutputOptions = {
     path: string;
 };
-export declare type InitOptions = {
+export type InitOptions = {
     encoding?: BufferEncoding;
     server: {
         port?: number;
@@ -38,16 +38,16 @@ export declare type InitOptions = {
     isDirectoryMode?: boolean;
     search?: boolean;
 };
-export declare type DocInfo = {
+export type DocInfo = {
     name?: string;
     version?: string;
     tag?: string;
 };
-export declare type TabConfig = {
+export type TabConfig = {
     tabName: string;
     tree: Array<TitleTree>;
 };
-export declare type InitConfig = {
+export type InitConfig = {
     docInfo: DocInfo;
     tabs: Array<Tab>;
     home?: string;

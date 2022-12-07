@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.server = exports.build = exports.config = void 0;
-const file_1 = require("./file");
-const vue_1 = require("./vue");
-const _webpack_1 = require("./_webpack");
+var file_1 = require("./file");
+var vue_1 = require("./vue");
+var _webpack_1 = require("./_webpack");
 function initConfig() {
     (0, file_1.initOutputDir)();
     exports.config = (0, file_1.readConfigFile)();

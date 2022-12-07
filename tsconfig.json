@@ -5,13 +5,12 @@
     "module": "CommonJS",
     "outDir": "./dist",
     "skipLibCheck": true,
-    "moduleResolution": "Node",
     "removeComments": true,
     "declaration": true,
-    "declarationDir": "./dist/",
+    "declarationDir": "./dist/"
   },
   "include": [
-    "./src/**/*.ts",
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

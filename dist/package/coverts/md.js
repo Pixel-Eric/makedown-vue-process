@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseAllTitle = exports.parseTitle = void 0;
-const typeGenerate_1 = require("../util/typeGenerate");
-const regxGenerate_1 = require("../util/regxGenerate");
+var typeGenerate_1 = require("../util/typeGenerate");
+var regxGenerate_1 = require("../util/regxGenerate");
 function prefixVerify(prefix) {
     return prefix === '###';
 }
@@ -13,7 +13,7 @@ function pushNode(target, children, title = "") {
     else {
         target.children.push({
             title: title,
-            children: [],
+            children: []
         });
     }
 }
